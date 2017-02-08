@@ -31,9 +31,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_detail"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:textColor="#3ABDCB"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
