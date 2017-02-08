@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <![endif]-->
+    <title></title>
+    <meta name="description" content="网络出错"/>
+    <meta name="author" content="Reznovzou"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root of your domain and delete these references -->
+    <link rel="shortcut icon" href="#"/>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+    <style type="text/css">
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+	b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+	details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+	output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup,
+	menu, nav, section {
+	display: block;
+}
+
+body {
+	/* 对移动端做了兼容，加了字体设置 */
+	font-family: 'Helvetica Neue', 'Roboto', "microsoft yahei";
+	line-height: 1;
+	-webkit-touch-callout: none;
+	-webkit-text-size-adjust: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+ol, ul {
+	list-style: none;
+}
+
+html, body {
+	height: 100%;
+}
+
+.main-bg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -102px 0 0 -67px;
+	width: 142px;
+	height: 32px;
+	background:
+		url(data:image/png;base64,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)
+		no-repeat;
+	background-size: 142px auto;
+}
+
+.tips-text {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: 52px;
+	width: 100%;
+	line-height: 18px;
+	font-size: 12px;
+	color: #aaa;
+	text-align: center;
+}
+
+.tips-text .link {
+	color: #4c9afa;
+	text-decoration: none;
+}
+
+.title {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: 9px;
+	width: 100%;
+	line-height: 30px;
+	font-size: 16px;
+	color: #333;
+	text-align: center;
+}
+
+    </style>
+
+    <script type="text/javascript">
+	(function() {
+		if (window.qb_bridge == undefined) {
+			var ua = navigator.userAgent.toLowerCase();
+			if (ua.indexOf('mqqbrowser/5') != -1) {
+				window.qb_bridge = {
+					nativeExec: function(service, action, callbackId, argsJson) {
+						return prompt(argsJson, 'mtt:[' + [service, action, callbackId] + ']')
+					}
+				}
+			} else {
+				console.warn('Not a qq browser or version too old');
+				return
+			}
+		}
+		qb_bridge.callbackId = Math.floor(Math.random() * 2000000000);
+		qb_bridge.callbacks = {};
+		qb_bridge.exec = function(success, fail, service, action, args) {
+			var callbackId = service + qb_bridge.callbackId++,
+			argsJson = args ? JSON.stringify(args) : "";
+			if (success || fail) {
+				qb_bridge.callbacks[callbackId] = {
+					success: success,
+					fail: fail
+				}
+			}
+			var ret = qb_bridge.nativeExec(service, action, callbackId, argsJson);
+			if (ret === 'true') {
+				return true
+			} else if (ret === 'false') {
+				return false
+			} else {
+				return ret
+			}
+		};
+		qb_bridge.callbackFromNative = function(callbackId, args) {
+			var callback = qb_bridge.callbacks[callbackId];
+			var argsJson = JSON.parse(args);
+			if (callback) {
+				if (argsJson.succ) {
+					callback.success && callback.success(argsJson.msg)
+				} else {
+					callback.fail && callback.fail(argsJson.msg)
+				}
+				if (!argsJson.keep) {
+					delete qb_bridge.callbacks[callbackId]
+				}
+			}
+		};
+		qb_bridge.createEvent = function(type, data) {
+			var event = document.createEvent('Events');
+			event.initEvent(type, false, false);
+			if (data) {
+				for (var i in data) {
+					if (data.hasOwnProperty(i)) {
+						event[i] = data[i]
+					}
+				}
+			}
+			return event
+		}
+		qb_bridge.fireEvent = function(type, params) {
+			var channel = qb_channel[type];
+			if (channel) {
+				var data = params && JSON.parse(params);
+				var evt = qb_bridge.createEvent(type, data);
+				channel.fire(evt)
+			}
+		}
+		var QbChannel = function(type) {
+			this.type = type;
+			this.handlers = {};
+			this.numHandlers = 0;
+			this.onHasSubscribersChange = null
+		},
+		qb_channel = {
+			create: function(type) {
+				return qb_channel[type] = new QbChannel(type)
+			},
+			nextGuid: 0,
+		};
+		QbChannel.prototype.subscribe = function(f) {
+			var func = f,
+			guid = f.observer_guid;
+			if (!guid) {
+				guid = '' + qb_channel.nextGuid++
+			}
+			func.observer_guid = guid;
+			f.observer_guid = guid;
+			if (!this.handlers[guid]) {
+				this.handlers[guid] = func;
+				this.numHandlers++;
+				if (this.numHandlers == 1) {
+					this.onHasSubscribersChange && this.onHasSubscribersChange()
+				}
+			}
+		};
+		QbChannel.prototype.unsubscribe = function(f) {
+			var guid = f.observer_guid,
+			handler = this.handlers[guid];
+			if (handler) {
+				delete this.handlers[guid];
+				this.numHandlers--;
+				if (this.numHandlers === 0) {
+					this.onHasSubscribersChange && this.onHasSubscribersChange()
+				}
+			}
+		};
+		QbChannel.prototype.fire = function(e) {
+			if (this.numHandlers) {
+				var toCall = [];
+				for (var item in this.handlers) {
+					toCall.push(this.handlers[item])
+				}
+				for (var i = 0; i < toCall.length; ++i) {
+					toCall[i](e)
+				}
+			}
+		};
+		window.qb = {
+			screen: {
+				addEventListener: function(type, handler, capture) {
+					if (type !== 'onorientationchange') {
+						return
+					}
+					var channel = qb_channel['onorientationchange'];
+					if (!channel) {
+						channel = qb_channel.create('onorientationchange');
+						channel.onHasSubscribersChange = function() {
+							qb_bridge.exec(null, null, "screen", "subscribeChanged", {
+								numHandlers: this.numHandlers
+							})
+						}
+					}
+					channel.subscribe(handler)
+				},
+				removeEventListener: function(type, handler, capture) {
+					var channel = qb_channel[type];
+					if (channel) {
+						channel.unsubscribe(handler)
+					}
+				},
+			},
+		}
+	})();
+
+    </script>
+    <script type="text/javascript">
+	function initShowInfoLink() {
+		var a = document.getElementById("aInfo");
+		a.onclick = function() {
+			var divInfo = document.getElementById("divInfo");
+			a.style.display = "none";
+			divInfo.style.display = "";
+			return false;
+		};
+	}
+
+	function initErrMsg() {
+		// 这里计算不同页面的不同内容：图片，文字
+		var errorNo = document.getElementById("errorNo").innerHTML;
+		console.log("errorNo="+errorNo);
+		var leftP = errorNo.indexOf('(');
+		var rightP = errorNo.indexOf(')');
+		var noStr = errorNo.substring(leftP + 1, rightP);
+		console.log("noStr="+noStr);
+		var no = parseInt(noStr);
+		fullfilErrMsg(no);
+	}
+
+	function fullfilErrMsg(no) {
+		var prompt = document.getElementById("prompt");
+		var errInfo = document.getElementById("errInfo");
+		var helpInfo = document.getElementById("helpInfo");
+		switch (no) {
+		default: // 通用
+		case -6: // 网络不给力
+			prompt.innerHTML = "无法打开此网页";
+			errInfo.innerHTML = "网络信号弱，不稳定或路由器连接故障。";
+			helpInfo.innerHTML = "您可以在网络信号好时<a href='javascript:location.reload()' class='link'>重新加载</a>该网页。";
+			break;
+		case -2: // 域名解析错误
+			prompt.innerHTML = "该网站暂时无法访问";
+			errInfo.innerHTML = "域名解析出错。";
+			helpInfo.innerHTML = "请确保您输入的网址正确。";
+			break;
+		case -8: // 超时
+			prompt.innerHTML = "该网站暂时无法访问";
+			errInfo.innerHTML = "该网站响应时间过长，导致无法打开。";
+			helpInfo.innerHTML = "您可稍后尝试<a href='mttconmander:reload' class='link'>重新加载</a>该网页。";
+			break;
+		case -12: // 网址输入错误
+			prompt.innerHTML = "该网站暂时无法访问";
+			errInfo.innerHTML = "网址输入错误。";
+			helpInfo.innerHTML = "请确保您输入的网址正确。";
+			break;
+		case -17: // 无网络
+			prompt.innerHTML = "无法打开此网页";
+			errInfo.innerHTML = "Wi-Fi和移动数据已关闭。";
+			helpInfo.innerHTML = "您可以在网络信号好时<a href='javascript:location.reload()' class='link'>重新加载</a>该网页。";
+			break;
+		// APN设置错误 4.0以上
+		case -97:
+			prompt.innerHTML = "该网站暂时无法访问";
+			errInfo.innerHTML = "接入点设置错误。";
+			helpInfo.innerHTML = "请手动<a href='qb://sys-network-setting' class='link'>重置接入点</a>设置后重新加载该网页。";
+			break;
+		// 以下错误暂时不存在，和真实的错误码对应不上，只是设计师这样定的
+		case -98: // APN设置错误 4.0以下
+			prompt.innerHTML = "该网站暂时无法访问";
+			errInfo.innerHTML = "网络连接端口可能被某些软件修改。";
+			helpInfo.innerHTML = "请<a href='qb://sys-network-setting' class='link'>重置接入点</a>后重新加载该网页。";
+			break;
+		case -99: // 直连/代理发生故障
+			prompt.innerHTML = "该网站暂时无法访问";
+			errInfo.innerHTML = "代理服务器发生故障。";
+			helpInfo.innerHTML = "您可稍后尝试重新加载该网页。";
+			break;
+		}
+	}
+
+	function onScreenOrientChanged(event) {
+		initShowInfoLink();
+		initErrMsg();
+	}
+
+	function onload() {
+		window.qb.screen.addEventListener('onorientationchange', onScreenOrientChanged, false);
+	}
+
+    </script>
+</head>
+<body onload="onScreenOrientChanged()">
+<div class="main-bg"></div>
+<div id="prompt" class="title">无法打开网页</div>
+<div class="tips-text">
+    <p>
+        <a id="aInfo" class="link" href="javascript:void(0)">详细信息</a>
+    </p>
+</div>
+<div id="divInfo" class="tips-text" style="display: none;">
+    <p id="errInfo">Wi-Fi和移动数据已关闭。</p>
+    <p id="helpInfo">您可在连接到网络后<a class="link" href="javascript:void(0)">重新加载</a>该网页。</p>
+</div>
+
+<div id="errorNo" style="display: none">出错了${(-17)}</div>
+</body>
+</html>
