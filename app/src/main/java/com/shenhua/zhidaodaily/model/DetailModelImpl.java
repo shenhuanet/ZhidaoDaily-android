@@ -40,7 +40,7 @@ public class DetailModelImpl implements DetailModel, BaseAsyncLoader.OnLoadListe
         if (document == null) return new Exception("数据异常");
         Element element = document.getElementsByClass("content-text").get(0);
         String result = Constants.HtmlString.HTML_HEAD + element + Constants.HtmlString.HTML_END;
-        result = Constants.HtmlString.formatImg(result);
+        result = Constants.HtmlString.formatImg(result).replace("<p></br><img src=\"\"></p>","");
         DetailBean detailBean = new DetailBean(result);
         System.out.println(result);
         return detailBean;

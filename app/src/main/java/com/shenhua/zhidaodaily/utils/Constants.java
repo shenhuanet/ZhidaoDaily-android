@@ -7,6 +7,7 @@ package com.shenhua.zhidaodaily.utils;
 public class Constants {
 
     public static final String DAILY_URL = "http://zhidao.baidu.com/daily";
+    public static final String DAILY_PRE = "?period=1351";
     public final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.87 Safari/537.36 QQBrowser/9.2.5748.400";
 
     public static class HtmlString {

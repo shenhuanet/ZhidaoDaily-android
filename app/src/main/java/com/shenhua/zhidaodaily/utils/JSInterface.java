@@ -8,6 +8,7 @@ import android.webkit.JavascriptInterface;
 import com.shenhua.zhidaodaily.ui.PhotoActivity;
 
 /**
+ * 通用WebView JS interface
  * Created by Shenhua on 12/10/2016.
  * e-mail shenhuanet@126.com
  */
