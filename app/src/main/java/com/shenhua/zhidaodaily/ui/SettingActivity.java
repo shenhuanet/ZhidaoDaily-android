@@ -17,8 +17,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.shenhua.zhidaodaily.utils.AppUtils.API_TAKEN;
-
 /**
  * Created by Shenhua on 12/10/2016.
  * e-mail shenhuanet@126.com
@@ -80,7 +78,15 @@ public class SettingActivity extends BaseActivity {
                 Toast.makeText(this, "缓存清理成功", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl_check:
-                FirUpdater.getInstance().updateAuto(this, API_TAKEN);
+//                FirUpdater.getInstance().updateAuto(this, API_TAKEN);
+//                BmobUpdateAgent.setUpdateListener(new BmobUpdateListener() {
+//                    @Override
+//                    public void onUpdateReturned(int i, UpdateResponse updateResponse) {
+//                        Log.d("shenhuaLog -- " + SettingActivity.class.getSimpleName(), "onUpdateReturned: " + updateResponse.toString());
+//                    }
+//                });
+
+
                 break;
             case R.id.switch_theme:
                 AppUtils.getInstance(this).setThemeConfig(mThemeSwitch.isChecked());

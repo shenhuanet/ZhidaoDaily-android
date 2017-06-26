@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.shenhua.libs.firupdater.FirUpdater;
 import com.shenhua.zhidaodaily.R;
 import com.shenhua.zhidaodaily.presenter.HomePresenter;
+import com.shenhua.zhidaodaily.update.BmobUpdateUtil;
 import com.shenhua.zhidaodaily.utils.Constants;
 import com.shenhua.zhidaodaily.utils.DailyAdapter;
 import com.shenhua.zhidaodaily.view.HomeView;
@@ -29,6 +30,8 @@ import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
 
 import static com.shenhua.zhidaodaily.utils.AppUtils.API_TAKEN;
 
@@ -52,6 +55,12 @@ public class MainActivity extends BaseActivity implements HomeView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bmob.initialize(this, "8cb4ad0d5a449d6165997c181e736497");
+        BmobInstallation.getCurrentInstallation().save();
+        BmobUpdateUtil.getInstance(this).update();
+
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setupActionBar(toolbar, R.string.app_name, false);
