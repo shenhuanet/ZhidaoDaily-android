@@ -8,8 +8,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.shenhua.libs.firupdater.FirUpdater;
 import com.shenhua.zhidaodaily.R;
+import com.shenhua.zhidaodaily.update.BmobUpdateUtil;
 import com.shenhua.zhidaodaily.utils.AppUtils;
 import com.shenhua.zhidaodaily.utils.DataCleanManager;
 
@@ -78,15 +78,7 @@ public class SettingActivity extends BaseActivity {
                 Toast.makeText(this, "缓存清理成功", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl_check:
-//                FirUpdater.getInstance().updateAuto(this, API_TAKEN);
-//                BmobUpdateAgent.setUpdateListener(new BmobUpdateListener() {
-//                    @Override
-//                    public void onUpdateReturned(int i, UpdateResponse updateResponse) {
-//                        Log.d("shenhuaLog -- " + SettingActivity.class.getSimpleName(), "onUpdateReturned: " + updateResponse.toString());
-//                    }
-//                });
-
-
+                BmobUpdateUtil.getInstance(this).setFileDir("zhidaoDaily").updateManual();
                 break;
             case R.id.switch_theme:
                 AppUtils.getInstance(this).setThemeConfig(mThemeSwitch.isChecked());
@@ -95,11 +87,5 @@ public class SettingActivity extends BaseActivity {
                 AppUtils.getInstance(this).setUpdateConfig(mUpdateSwitch.isChecked());
                 break;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        FirUpdater.getInstance().onDestroy();
     }
 }

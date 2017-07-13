@@ -12,11 +12,9 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.shenhua.libs.firupdater.FirUpdater;
 import com.shenhua.zhidaodaily.R;
 import com.shenhua.zhidaodaily.presenter.HomePresenter;
 import com.shenhua.zhidaodaily.update.BmobUpdateUtil;
@@ -30,10 +28,9 @@ import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
-
-import static com.shenhua.zhidaodaily.utils.AppUtils.API_TAKEN;
 
 public class MainActivity extends BaseActivity implements HomeView {
 
@@ -45,8 +42,8 @@ public class MainActivity extends BaseActivity implements HomeView {
     SwipeRefreshLayout mSwipeRefreshLayout;
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
-    @Bind(R.id.progress)
-    ProgressBar progressBar;
+//    @Bind(R.id.progress)
+//    ProgressBar progressBar;
     @Bind(R.id.empty)
     TextView empty;
 
@@ -58,8 +55,7 @@ public class MainActivity extends BaseActivity implements HomeView {
 
         Bmob.initialize(this, "8cb4ad0d5a449d6165997c181e736497");
         BmobInstallation.getCurrentInstallation().save();
-        BmobUpdateUtil.getInstance(this).update();
-
+        BmobUpdateUtil.getInstance(this).setFileDir("zhidaoDaily").updateAuto();
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -79,7 +75,7 @@ public class MainActivity extends BaseActivity implements HomeView {
             }
         });
 
-        FirUpdater.getInstance().updateAuto(this, API_TAKEN);
+        // FirUpdater.getInstance().updateAuto(this, API_TAKEN);
     }
 
     @Override
@@ -90,7 +86,8 @@ public class MainActivity extends BaseActivity implements HomeView {
         isInit = true;
     }
 
-    private void doGetData() {
+    @OnClick(R.id.empty)
+    void doGetData() {
         HomePresenter presenter = new HomePresenter(this);
         presenter.execute(Constants.DAILY_URL);
     }
@@ -114,7 +111,7 @@ public class MainActivity extends BaseActivity implements HomeView {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                progressBar.setVisibility(View.VISIBLE);
+//                progressBar.setVisibility(View.VISIBLE);
                 mSwipeRefreshLayout.post(new Runnable() {
                     @Override
                     public void run() {
@@ -130,7 +127,7 @@ public class MainActivity extends BaseActivity implements HomeView {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                progressBar.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -144,6 +141,7 @@ public class MainActivity extends BaseActivity implements HomeView {
             public void run() {
                 DailyAdapter adapter = new DailyAdapter(MainActivity.this, datas);
                 mRecyclerView.setAdapter(adapter);
+                empty.setVisibility(View.GONE);
             }
         });
     }
@@ -182,9 +180,4 @@ public class MainActivity extends BaseActivity implements HomeView {
         return false;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        FirUpdater.getInstance().onDestroy();
-    }
 }

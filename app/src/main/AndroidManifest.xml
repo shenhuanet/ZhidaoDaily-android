@@ -25,6 +25,11 @@
         <activity android:name=".ui.DetailActivity" />
         <activity android:name=".ui.SettingActivity" />
         <activity android:name=".ui.PhotoActivity" />
+        <receiver android:name=".update.InstallReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

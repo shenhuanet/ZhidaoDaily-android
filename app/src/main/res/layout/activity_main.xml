@@ -39,46 +39,13 @@
             android:textColor="#333333"
             android:visibility="gone" />
 
-        <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
+        <!--<ProgressBar-->
+            <!--android:id="@+id/progress"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:visibility="gone" />-->
 
     </FrameLayout>
-
-    <!--<include layout="@layout/view_logo" />-->
-
-    <!--<FrameLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/empty"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:background="?attr/selectableItemBackgroundBorderless"-->
-    <!--android:clickable="true"-->
-    <!--android:padding="3dp"-->
-    <!--android:text="@string/string_empty"-->
-    <!--android:textColor="#333333"-->
-    <!--android:visibility="gone" />-->
-
-    <!--<ProgressBar-->
-    <!--android:id="@+id/progress"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:visibility="gone" />-->
-
-    <!--<ListView-->
-    <!--android:id="@+id/lv"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:scrollbars="none" />-->
-
-    <!--</FrameLayout>-->
 
 </LinearLayout>
