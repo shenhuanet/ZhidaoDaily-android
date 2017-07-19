@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3A7DDC</color>
     <color name="colorPrimaryDark">#3A7DDC</color>
     <color name="colorAccent">#3A7DDC</color>
+    <color name="colorWindowBg">#FFFFFF</color>
+    <color name="colorText">#000000</color>
+    <color name="colorTextLabel">#333333</color>
+    <color name="colorLogoBg">#993A7DDC</color>
+    <color name="colorRead">#3ABDCB</color>
 </resources>

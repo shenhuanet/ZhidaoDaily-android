@@ -43,7 +43,7 @@
                 android:layout_centerVertical="true"
                 android:padding="16dp"
                 android:text="@string/string_theme_night"
-                android:textColor="#333333" />
+                android:textColor="@color/colorTextLabel" />
 
             <Switch
                 android:id="@+id/switch_theme"
@@ -70,7 +70,7 @@
                 android:layout_centerVertical="true"
                 android:padding="16dp"
                 android:text="@string/string_auto_update"
-                android:textColor="#333333" />
+                android:textColor="@color/colorTextLabel" />
 
             <Switch
                 android:id="@+id/switch_update"
@@ -97,7 +97,7 @@
                 android:layout_centerVertical="true"
                 android:padding="16dp"
                 android:text="@string/string_clean_cache"
-                android:textColor="#333333" />
+                android:textColor="@color/colorTextLabel" />
 
             <TextView
                 android:id="@+id/tv_cache"
@@ -125,7 +125,7 @@
                 android:layout_centerVertical="true"
                 android:padding="16dp"
                 android:text="@string/string_check_new"
-                android:textColor="#333333" />
+                android:textColor="@color/colorTextLabel" />
 
             <TextView
                 android:id="@+id/tv_version"

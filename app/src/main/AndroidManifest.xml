@@ -25,7 +25,8 @@
         <activity android:name=".ui.DetailActivity" />
         <activity android:name=".ui.SettingActivity" />
         <activity android:name=".ui.PhotoActivity" />
-        <receiver android:name="com.shenhua.lib.bmobupdater.InstallReceiver" >
+
+        <receiver android:name="com.shenhua.lib.bmobupdater.InstallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>

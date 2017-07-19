@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Switch;
@@ -45,6 +46,9 @@ public class SettingActivity extends BaseActivity implements EasyPermissions.Per
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppUtils.getInstance(this).getThemeConfig() ?
+                AppCompatDelegate.MODE_NIGHT_YES :
+                AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
         setupActionBar(mToolbar, R.string.action_setting, true);
@@ -75,6 +79,8 @@ public class SettingActivity extends BaseActivity implements EasyPermissions.Per
             case R.id.rl_theme:
                 mThemeSwitch.setChecked(!mThemeSwitch.isChecked());
                 AppUtils.getInstance(this).setThemeConfig(mThemeSwitch.isChecked());
+                getDelegate().setLocalNightMode(mThemeSwitch.isChecked() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+                recreate();
                 break;
             case R.id.rl_update:
                 mUpdateSwitch.setChecked(!mUpdateSwitch.isChecked());

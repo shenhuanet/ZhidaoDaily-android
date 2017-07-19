@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.shenhua.lib.bmobupdater.BmobUpdateUtil;
 import com.shenhua.zhidaodaily.R;
 import com.shenhua.zhidaodaily.presenter.HomePresenter;
+import com.shenhua.zhidaodaily.utils.AppUtils;
 import com.shenhua.zhidaodaily.utils.Constants;
 import com.shenhua.zhidaodaily.utils.DailyAdapter;
 import com.shenhua.zhidaodaily.view.HomeView;
@@ -56,12 +58,15 @@ public class MainActivity extends BaseActivity implements HomeView, EasyPermissi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppUtils.getInstance(this).getThemeConfig() ?
+                AppCompatDelegate.MODE_NIGHT_YES :
+                AppCompatDelegate.MODE_NIGHT_NO);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         Bmob.initialize(this, "8cb4ad0d5a449d6165997c181e736497");
         methodRequiresPermission();
 
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
         setupActionBar(toolbar, R.string.app_name, false);
         initView();
     }
