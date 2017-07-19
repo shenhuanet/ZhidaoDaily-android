@@ -1,4 +1,4 @@
-package com.shenhua.zhidaodaily.update;
+package com.shenhua.lib.bmobupdater;
 
 import android.app.DownloadManager;
 import android.content.Context;
@@ -17,8 +17,6 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.shenhua.zhidaodaily.R;
-
 import org.json.JSONObject;
 
 import cn.bmob.v3.AsyncCustomEndpoints;
@@ -27,6 +25,8 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.CloudCodeListener;
 import cn.bmob.v3.update.AppVersion;
 
+import static android.content.Context.DOWNLOAD_SERVICE;
+
 /**
  * Created by shenhua on 2017-06-20.
  * Email shenhuanet@126.com
@@ -34,7 +34,6 @@ import cn.bmob.v3.update.AppVersion;
 public class BmobUpdateUtil {
 
     private Context context;
-    private String fileDir = "updateFile";
 
     public static BmobUpdateUtil getInstance(Context context) {
         return new BmobUpdateUtil(context);
@@ -74,7 +73,6 @@ public class BmobUpdateUtil {
                     return;
                 }
                 try {
-                    Log.d("shenhuaLog -- " + BmobUpdateUtil.class.getSimpleName(), "done: " + object.toString());
                     JSONObject json = new JSONObject(object.toString()).getJSONArray("results").getJSONObject(0);
                     AppVersion appversion = new AppVersion();
                     appversion.setVersion_i(json.getInt("version_i"));
@@ -129,11 +127,21 @@ public class BmobUpdateUtil {
         final CheckBox checkBox = (CheckBox) view.findViewById(R.id.bmob_update_id_check);
         checkBox.setVisibility(appVersion.getIsforce() ? View.GONE : View.VISIBLE);
         builder.setTitle("发现新版本");
-        builder.setIcon(R.mipmap.ic_launcher);
+        try {
+            builder.setIcon(context.getPackageManager().getApplicationIcon(context.getPackageName()));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         builder.setPositiveButton("立即升级", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                downloadApk(appVersion.getPath().getUrl());
+                try {
+                    downloadApk(appVersion);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "暂未赋予app下载权限", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         builder.setNegativeButton("下次再说", new DialogInterface.OnClickListener() {
@@ -149,16 +157,18 @@ public class BmobUpdateUtil {
         dialog.show();
     }
 
-    private void downloadApk(String url) {
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-        request.setTitle("正在下载" + context.getResources().getString(R.string.app_name) + "更新包");
+    private void downloadApk(AppVersion appVersion) {
+        DownloadManager dowanloadmanager = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(appVersion.getPath().getUrl()));
+        request.setTitle("正在下载'" + context.getResources().getString(R.string.app_name) + "'更新包");
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileDir);
-        DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        // 存储下载Key
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
+                context.getPackageName() + "-" + appVersion.getVersion() + ".apk");
+        request.setMimeType("application/vnd.android.package-archive");
+        request.allowScanningByMediaScanner();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putLong("download_apk_id_prefs", manager.enqueue(request)).apply();
+        sp.edit().putLong("download_apk_id_prefs", dowanloadmanager.enqueue(request)).apply();
     }
 
     /**
@@ -186,15 +196,6 @@ public class BmobUpdateUtil {
             Log.i("BmobUpdateUtil", "getCurrentAppVersionCode: error: VersionCode is int type.");
             return 1;
         }
-    }
-
-    public String getFileDir() {
-        return fileDir;
-    }
-
-    public BmobUpdateUtil setFileDir(String fileDir) {
-        this.fileDir = fileDir;
-        return this;
     }
 
     private class Config {

@@ -24,8 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:button="@drawable/bmob_update_button_check_selector"
-        android:text="@string/BMIgnore"
+        android:text="忽略该版"
         android:textColor="#AAABAF" />
 
 </LinearLayout>

@@ -1,7 +1,9 @@
 package com.shenhua.zhidaodaily.ui;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,9 +17,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shenhua.lib.bmobupdater.BmobUpdateUtil;
 import com.shenhua.zhidaodaily.R;
 import com.shenhua.zhidaodaily.presenter.HomePresenter;
-import com.shenhua.zhidaodaily.update.BmobUpdateUtil;
 import com.shenhua.zhidaodaily.utils.Constants;
 import com.shenhua.zhidaodaily.utils.DailyAdapter;
 import com.shenhua.zhidaodaily.view.HomeView;
@@ -31,8 +33,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends BaseActivity implements HomeView {
+public class MainActivity extends BaseActivity implements HomeView, EasyPermissions.PermissionCallbacks {
 
     private static Boolean isExit = false;
     private boolean isInit;
@@ -42,20 +46,19 @@ public class MainActivity extends BaseActivity implements HomeView {
     SwipeRefreshLayout mSwipeRefreshLayout;
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
-//    @Bind(R.id.progress)
+    //    @Bind(R.id.progress)
 //    ProgressBar progressBar;
     @Bind(R.id.empty)
     TextView empty;
 
-    // TODO: 2/8/2017 6.0权限
+// TODO: 2/8/2017 6.0权限
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Bmob.initialize(this, "8cb4ad0d5a449d6165997c181e736497");
-        BmobInstallation.getCurrentInstallation().save();
-        BmobUpdateUtil.getInstance(this).setFileDir("zhidaoDaily").updateAuto();
+        methodRequiresPermission();
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -74,8 +77,6 @@ public class MainActivity extends BaseActivity implements HomeView {
                 doGetData();
             }
         });
-
-        // FirUpdater.getInstance().updateAuto(this, API_TAKEN);
     }
 
     @Override
@@ -170,7 +171,6 @@ public class MainActivity extends BaseActivity implements HomeView {
                     public void run() {
                         isExit = false;
                     }
-
                 }, 2000);
             } else {
                 this.finish();
@@ -180,4 +180,29 @@ public class MainActivity extends BaseActivity implements HomeView {
         return false;
     }
 
+    @AfterPermissionGranted(1000)
+    private void methodRequiresPermission() {
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            BmobUpdateUtil.getInstance(this).updateAuto();
+            BmobInstallation.getCurrentInstallation().save();
+        } else {
+            EasyPermissions.requestPermissions(this, "请赋予app相关权限", 1000, perms);
+        }
+    }
+
+    @Override
+    public void onPermissionsGranted(int i, List<String> list) {
+        // Already have permission, do the thing
+    }
+
+    @Override
+    public void onPermissionsDenied(int i, List<String> list) {
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
 }

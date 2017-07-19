@@ -1,4 +1,6 @@
-package com.shenhua.zhidaodaily.update;
+package com.shenhua.lib.bmobupdater;
+
+import java.io.Serializable;
 
 import cn.bmob.v3.datatype.BmobFile;
 
@@ -6,7 +8,7 @@ import cn.bmob.v3.datatype.BmobFile;
  * Created by shenhua on 2017-06-20.
  * Email shenhuanet@126.com
  */
-public class AppVersion {
+public class AppVersion implements Serializable{
 
     private static final long serialVersionUID = 64546978636988120L;
     private String update_log;
