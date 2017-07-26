@@ -32,6 +32,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  */
 public class SettingActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
 
+    public static final int CODE_CHANGE_SKIN = 202;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.switch_theme)
@@ -78,9 +79,7 @@ public class SettingActivity extends BaseActivity implements EasyPermissions.Per
         switch (view.getId()) {
             case R.id.rl_theme:
                 mThemeSwitch.setChecked(!mThemeSwitch.isChecked());
-                AppUtils.getInstance(this).setThemeConfig(mThemeSwitch.isChecked());
-                getDelegate().setLocalNightMode(mThemeSwitch.isChecked() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-                recreate();
+                changeSkin();
                 break;
             case R.id.rl_update:
                 mUpdateSwitch.setChecked(!mUpdateSwitch.isChecked());
@@ -95,12 +94,22 @@ public class SettingActivity extends BaseActivity implements EasyPermissions.Per
                 methodRequiresPermission();
                 break;
             case R.id.switch_theme:
-                AppUtils.getInstance(this).setThemeConfig(mThemeSwitch.isChecked());
+                changeSkin();
                 break;
             case R.id.switch_update:
                 AppUtils.getInstance(this).setUpdateConfig(mUpdateSwitch.isChecked());
                 break;
         }
+    }
+
+    private void changeSkin() {
+        AppUtils.getInstance(this).setThemeConfig(mThemeSwitch.isChecked());
+        getDelegate().setLocalNightMode(mThemeSwitch.isChecked()
+                ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        recreate();
+        Intent intent = new Intent();
+        intent.putExtra("delete", true);
+        this.setResult(CODE_CHANGE_SKIN, intent);
     }
 
     @AfterPermissionGranted(1000)

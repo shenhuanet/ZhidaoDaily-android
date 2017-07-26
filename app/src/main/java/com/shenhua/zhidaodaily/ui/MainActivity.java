@@ -40,6 +40,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends BaseActivity implements HomeView, EasyPermissions.PermissionCallbacks {
 
+    public static final int REQUEST_CODE_SETTING = 201;
     private static Boolean isExit = false;
     private boolean isInit;
     @Bind(R.id.toolbar)
@@ -48,12 +49,8 @@ public class MainActivity extends BaseActivity implements HomeView, EasyPermissi
     SwipeRefreshLayout mSwipeRefreshLayout;
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
-    //    @Bind(R.id.progress)
-//    ProgressBar progressBar;
     @Bind(R.id.empty)
     TextView empty;
-
-// TODO: 2/8/2017 6.0权限
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +104,7 @@ public class MainActivity extends BaseActivity implements HomeView, EasyPermissi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_setting) {
-            startActivity(new Intent(this, SettingActivity.class));
+            startActivityForResult(new Intent(this, SettingActivity.class), REQUEST_CODE_SETTING);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -209,5 +206,16 @@ public class MainActivity extends BaseActivity implements HomeView, EasyPermissi
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_SETTING
+                && resultCode == SettingActivity.CODE_CHANGE_SKIN) {
+            getDelegate().setLocalNightMode(AppUtils.getInstance(this).getThemeConfig()
+                    ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+            recreate();
+        }
     }
 }
