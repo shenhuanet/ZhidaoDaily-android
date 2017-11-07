@@ -2,9 +2,9 @@
 
 ![preview](https://raw.githubusercontent.com/shenhuanet/shenhua-zhidaodaily/master/Screenshot.png)
 
-## 关于作者
-博客：http://blog.csdn.net/klxh2009<br>
-简书：http://www.jianshu.com/u/12a81897d5bc
+## About Me
+CSDN：http://blog.csdn.net/klxh2009<br>
+JianShu：http://www.jianshu.com/u/12a81897d5bc
 
 ## License
 
