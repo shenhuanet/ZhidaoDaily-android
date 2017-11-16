@@ -22,12 +22,20 @@ import com.shenhua.zhidaodaily.R;
 import com.shenhua.zhidaodaily.core.bean.DetailBean;
 import com.shenhua.zhidaodaily.presenter.DetailPresenter;
 import com.shenhua.zhidaodaily.utils.BaseWebViewClient;
-import com.shenhua.zhidaodaily.utils.JSInterface;
+import com.shenhua.zhidaodaily.utils.JsInterface;
 import com.shenhua.zhidaodaily.view.DetailView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * 详情页
+ * <p>
+ * Created by Shenhua on 12/10/2016.
+ * e-mail shenhuanet@126.com
+ *
+ * @author shenhua
+ */
 public class DetailActivity extends BaseActivity implements DetailView {
 
     @Bind(R.id.toolbar)
@@ -71,7 +79,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowFileAccess(true);
-        webView.addJavascriptInterface(new JSInterface(this), "imgClickListener");
+        webView.addJavascriptInterface(new JsInterface(this), "imgClickListener");
         webView.setWebViewClient(new BaseWebViewClient());
     }
 
@@ -109,6 +117,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
                 break;
             case R.id.action_screenshot:
 
+                break;
+            default:
                 break;
         }
         return super.onOptionsItemSelected(item);

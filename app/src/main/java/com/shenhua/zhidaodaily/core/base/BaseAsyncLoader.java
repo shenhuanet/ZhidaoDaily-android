@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 /**
  * Created by Shenhua on 12/6/2016.
  * e-mail shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class BaseAsyncLoader<P, S, T> extends AsyncTask<P, S, T> {
 
@@ -91,18 +93,46 @@ public class BaseAsyncLoader<P, S, T> extends AsyncTask<P, S, T> {
 
     public interface OnLoadListener<P, S, T> {
 
+        /**
+         * 数据开始
+         */
         void onDataStart();
 
+        /**
+         * 工作线程执行
+         *
+         * @param params params
+         * @return T
+         * @throws Exception 异常
+         */
         @SuppressWarnings("unchecked")
         T doInWorkerThread(P... params) throws Exception;
 
+        /**
+         * 更新进度条
+         *
+         * @param values 进度值
+         */
         @SuppressWarnings("unchecked")
         void onDataProgress(S... values);
 
+        /**
+         * 操作成功回调
+         *
+         * @param result 回调结果
+         */
         void onDataSuccess(T result);
 
+        /**
+         * 操作失败回调
+         *
+         * @param e 异常
+         */
         void onDataFail(Exception e);
 
+        /**
+         * 操作完成时回调
+         */
         void onDataFinish();
     }
 

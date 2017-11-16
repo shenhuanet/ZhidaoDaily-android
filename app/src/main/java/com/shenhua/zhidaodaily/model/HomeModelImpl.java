@@ -7,6 +7,7 @@ import com.shenhua.zhidaodaily.core.base.BaseHttpApi;
 import com.shenhua.zhidaodaily.core.bean.BannerBean;
 import com.shenhua.zhidaodaily.core.bean.HomeBean;
 import com.shenhua.zhidaodaily.utils.Constants;
+import com.shenhua.zhidaodaily.utils.ThreadFactoryBuilder;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -14,20 +15,27 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 /**
+ * 主页数据model实现类
+ * <p>
  * Created by shenhua on 12/1/2016.
  * Email shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class HomeModelImpl implements HomeModel {
+
+    ExecutorService service = ThreadFactoryBuilder.buildSimpleExecutorService();
 
     @Override
     public void toGetSource(final String url, boolean inSameDate, final HomeCallback callback) {
         callback.onPreDoing();
-        if (inSameDate) {// 同一天，读取本地
-
+        if (inSameDate) {
+            // TODO: 2017-11-16-0016 同一天，读取本地数据库资源
         } else {
-            new Thread(new Runnable() {
+            service.submit(new Runnable() {
                 @Override
                 public void run() {
                     String result = BaseHttpApi.getInstance().doGetHtml(url, Constants.USER_AGENT, true);
@@ -38,14 +46,14 @@ public class HomeModelImpl implements HomeModel {
                     }
                     callback.onGetSourceSuccess(result);
                 }
-            }).start();
+            });
         }
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void toGetDatas(final String source, final HomeCallback callback) {
-        new Thread(new Runnable() {
+        service.submit(new Runnable() {
             @Override
             public void run() {
                 if (source == null || TextUtils.isEmpty(source)) {
@@ -90,6 +98,6 @@ public class HomeModelImpl implements HomeModel {
                 }
                 callback.onPostDoing();
             }
-        }).start();
+        });
     }
 }

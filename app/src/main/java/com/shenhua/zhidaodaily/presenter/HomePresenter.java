@@ -8,8 +8,12 @@ import com.shenhua.zhidaodaily.view.HomeView;
 import java.util.List;
 
 /**
+ * 主页页面代理
+ * <p>
  * Created by Shenhua on 12/1/2016.
  * e-mail shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class HomePresenter implements HomeCallback {
 

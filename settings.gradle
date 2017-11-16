@@ -1,1 +1,1 @@
-include ':app', ':bmobupdater'
+include ':app'

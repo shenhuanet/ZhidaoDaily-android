@@ -2,6 +2,15 @@
 
 ![preview](https://raw.githubusercontent.com/shenhuanet/shenhua-zhidaodaily/master/Screenshot.png)
 
+## Technology used
+
+- [x] MVP框架网络请求
+- [x] Jsoup 网络请求与Html文档解析
+- [ ] 数据库本地存储
+- [ ] 动态更换皮肤
+- [ ] 支持切换其它日期
+- [ ] 内容分享(文字详情|页面截图)
+
 ## About Me
 CSDN：http://blog.csdn.net/klxh2009<br>
 JianShu：http://www.jianshu.com/u/12a81897d5bc

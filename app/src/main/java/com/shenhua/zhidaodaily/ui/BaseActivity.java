@@ -7,8 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 /**
+ * Activity 基类,提供Toolbar的配置和OptionMenu的配置
+ * <p>
  * Created by shenhua on 12/1/2016.
  * Email shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class BaseActivity extends AppCompatActivity {
 
@@ -23,7 +27,9 @@ public class BaseActivity extends AppCompatActivity {
         ab = getSupportActionBar();
         if (ab != null) {
             ab.setTitle(title);
-            if (!shouldBack) return;
+            if (!shouldBack) {
+                return;
+            }
             ab.setDisplayHomeAsUpEnabled(true);
             ab.setDisplayShowHomeEnabled(true);
         }
@@ -35,17 +41,19 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void setupActionBarTitle(String title) {
-        if (ab != null)
+        if (ab != null) {
             ab.setTitle(title);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            if (Build.VERSION.SDK_INT > 21)
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                 finishAfterTransition();
-            else
+            } else {
                 finish();
+            }
         }
         return super.onOptionsItemSelected(item);
     }

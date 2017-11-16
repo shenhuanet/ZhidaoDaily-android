@@ -1,4 +1,4 @@
-package com.shenhua.zhidaodaily.utils;
+package com.shenhua.zhidaodaily.view;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -28,6 +28,8 @@ import butterknife.ButterKnife;
 /**
  * Created by Shenhua on 12/13/2016.
  * e-mail shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class DailyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -45,11 +47,13 @@ public class DailyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == ITEM_TYPE_HEADER)
+        if (viewType == ITEM_TYPE_HEADER) {
             return new HeaderViewHolder(mLayoutInflater.inflate(R.layout.view_logo, parent, false));
-        else if (viewType == ITEM_TYPE_CONTENT)
+        } else if (viewType == ITEM_TYPE_CONTENT) {
             return new ContentViewHolder(mLayoutInflater.inflate(R.layout.list_item, parent, false));
-        else return null;
+        } else {
+            return null;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -99,8 +103,11 @@ public class DailyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) return ITEM_TYPE_HEADER;
-        else return ITEM_TYPE_CONTENT;
+        if (position == 0) {
+            return ITEM_TYPE_HEADER;
+        } else {
+            return ITEM_TYPE_CONTENT;
+        }
     }
 
     public void setDatas(List<T> datas) {
@@ -121,7 +128,9 @@ public class DailyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @SuppressWarnings("unchecked")
     @Override
     public int getItemCount() {
-        if (datas == null || datas.size() == 0) return 0;
+        if (datas == null || datas.size() == 0) {
+            return 0;
+        }
         return ((List<HomeBean>) datas.get(1)).size() + 1;
     }
 

@@ -11,8 +11,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 /**
+ * 详情model实现类
+ *
  * Created by shenhua on 12/1/2016.
  * Email shenhuanet@126.com
+ *
+ * @author shenhua
  */
 @SuppressWarnings("unchecked")
 public class DetailModelImpl implements DetailModel, BaseAsyncLoader.OnLoadListener {
@@ -35,12 +39,16 @@ public class DetailModelImpl implements DetailModel, BaseAsyncLoader.OnLoadListe
     @Override
     public Object doInWorkerThread(Object[] params) throws Exception {
         String str = (String) params[0];
-        if (str == null) throw new Exception("Detail URL is null");
+        if (str == null) {
+            throw new Exception("Detail URL is null");
+        }
         Document document = Jsoup.parse(BaseHttpApi.getInstance().doGetHtml(str, "", true));
-        if (document == null) return new Exception("数据异常");
+        if (document == null) {
+            return new Exception("数据异常");
+        }
         Element element = document.getElementsByClass("content-text").get(0);
         String result = Constants.HtmlString.HTML_HEAD + element + Constants.HtmlString.HTML_END;
-        result = Constants.HtmlString.formatImg(result).replace("<p></br><img src=\"\"></p>","");
+        result = Constants.HtmlString.formatImg(result).replace("<p></br><img src=\"\"></p>", "");
         DetailBean detailBean = new DetailBean(result);
         System.out.println(result);
         return detailBean;
@@ -53,8 +61,11 @@ public class DetailModelImpl implements DetailModel, BaseAsyncLoader.OnLoadListe
 
     @Override
     public void onDataSuccess(Object result) {
-        if (result == null) callback.onFail("数据为空");
-        else callback.onGetDetailSuccess((DetailBean) result);
+        if (result == null) {
+            callback.onFail("数据为空");
+        } else {
+            callback.onGetDetailSuccess((DetailBean) result);
+        }
     }
 
     @Override

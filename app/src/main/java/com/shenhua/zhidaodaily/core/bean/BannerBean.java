@@ -3,6 +3,8 @@ package com.shenhua.zhidaodaily.core.bean;
 /**
  * Created by shenhua on 12/2/2016.
  * Email shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class BannerBean {
 
@@ -10,7 +12,10 @@ public class BannerBean {
     private String from;
     private String img;
     private String href;
-    private String periods;// 期数和时间
+    /**
+     * 期数和时间
+     */
+    private String periods;
 
     public String getFrom() {
         return from;

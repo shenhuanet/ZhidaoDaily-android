@@ -11,6 +11,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.shenhua.zhidaodaily.R;
 import com.shenhua.zhidaodaily.utils.AppUtils;
+import com.shenhua.zhidaodaily.utils.Constants;
+import com.shenhua.zhidaodaily.utils.ThreadFactoryBuilder;
+
+import java.util.concurrent.ExecutorService;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,8 +23,12 @@ import uk.co.senab.photoview.PhotoView;
 import static com.bumptech.glide.Glide.with;
 
 /**
+ * 图片详情页
+ * <p>
  * Created by shenhua on 12/16/2016.
  * Email shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class PhotoActivity extends BaseActivity {
 
@@ -47,7 +55,8 @@ public class PhotoActivity extends BaseActivity {
     }
 
     private void savePic(final String url) {
-        new Thread(new Runnable() {
+        ExecutorService service = ThreadFactoryBuilder.buildSimpleExecutorService();
+        service.submit(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -55,7 +64,7 @@ public class PhotoActivity extends BaseActivity {
                             .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                             .get();
                     if (bitmap != null) {
-                        AppUtils.saveBitmapToSDCard(PhotoActivity.this, bitmap, AppUtils.getFileName(url), "zhidao_daily", true);
+                        AppUtils.saveBitmapToSDCard(PhotoActivity.this, bitmap, AppUtils.getFileName(url), Constants.FILE_DIR, true);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -73,6 +82,7 @@ public class PhotoActivity extends BaseActivity {
                     });
                 }
             }
-        }).start();
+        });
+        service.shutdown();
     }
 }

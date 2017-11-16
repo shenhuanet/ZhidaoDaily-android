@@ -7,8 +7,12 @@ import com.shenhua.zhidaodaily.model.DetailModelImpl;
 import com.shenhua.zhidaodaily.view.DetailView;
 
 /**
+ * 详情页面信息代理
+ * <p>
  * Created by Shenhua on 12/1/2016.
  * e-mail shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class DetailPresenter implements DetailCallback {
 

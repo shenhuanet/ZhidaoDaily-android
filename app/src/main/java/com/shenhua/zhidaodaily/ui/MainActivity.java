@@ -2,8 +2,10 @@ package com.shenhua.zhidaodaily.ui;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatDelegate;
@@ -18,30 +20,33 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.shenhua.lib.bmobupdater.BmobUpdateUtil;
 import com.shenhua.zhidaodaily.R;
 import com.shenhua.zhidaodaily.presenter.HomePresenter;
 import com.shenhua.zhidaodaily.utils.AppUtils;
 import com.shenhua.zhidaodaily.utils.Constants;
-import com.shenhua.zhidaodaily.utils.DailyAdapter;
+import com.shenhua.zhidaodaily.view.DailyAdapter;
 import com.shenhua.zhidaodaily.view.HomeView;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobInstallation;
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends BaseActivity implements HomeView, EasyPermissions.PermissionCallbacks {
+/**
+ * Created by Shenhua on 12/10/2016.
+ * e-mail shenhuanet@126.com
+ *
+ * @author shenhua
+ */
+public class MainActivity extends BaseActivity implements HomeView {
 
     public static final int REQUEST_CODE_SETTING = 201;
-    private static Boolean isExit = false;
+    public static final int REQUEST_STORAGE_PERMISSION = 202;
+    private volatile boolean isExit = false;
     private boolean isInit;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -55,17 +60,28 @@ public class MainActivity extends BaseActivity implements HomeView, EasyPermissi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppCompatDelegate.setDefaultNightMode(AppUtils.getInstance(this).getThemeConfig() ?
+        AppCompatDelegate.setDefaultNightMode(AppUtils.getInstance().getThemeConfig(this) ?
                 AppCompatDelegate.MODE_NIGHT_YES :
                 AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        Bmob.initialize(this, "8cb4ad0d5a449d6165997c181e736497");
-        methodRequiresPermission();
-
         setupActionBar(toolbar, R.string.app_name, false);
+
+        requestStoragePermission();
+
         initView();
+    }
+
+    /**
+     * 请求读写存储卡权限
+     */
+    private void requestStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            new PermissionDeclarationDialogFragment().show(getSupportFragmentManager(), "dialog");
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_STORAGE_PERMISSION);
+        }
     }
 
     private void initView() {
@@ -84,11 +100,15 @@ public class MainActivity extends BaseActivity implements HomeView, EasyPermissi
     @Override
     protected void onResume() {
         super.onResume();
-        if (!isInit)
+        if (!isInit) {
             doGetData();
+        }
         isInit = true;
     }
 
+    /**
+     * 获取数据开始,刷新数据
+     */
     @OnClick(R.id.empty)
     void doGetData() {
         HomePresenter presenter = new HomePresenter(this);
@@ -163,49 +183,35 @@ public class MainActivity extends BaseActivity implements HomeView, EasyPermissi
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Timer tExit;
             if (!isExit) {
                 isExit = true;
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-                tExit = new Timer();
-                tExit.schedule(new TimerTask() {
+                ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+                service.schedule(new Runnable() {
                     @Override
                     public void run() {
-                        isExit = false;
+                        if (!isFinishing()) {
+                            isExit = false;
+                        }
                     }
-                }, 2000);
+                }, 2000, TimeUnit.MILLISECONDS);
             } else {
+                isExit = true;
                 this.finish();
-                System.exit(0);
             }
         }
         return false;
     }
 
-    @AfterPermissionGranted(1000)
-    private void methodRequiresPermission() {
-        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        if (EasyPermissions.hasPermissions(this, perms)) {
-            BmobUpdateUtil.getInstance(this).updateAuto();
-            BmobInstallation.getCurrentInstallation().save();
-        } else {
-            EasyPermissions.requestPermissions(this, "请赋予app相关权限", 1000, perms);
-        }
-    }
-
-    @Override
-    public void onPermissionsGranted(int i, List<String> list) {
-        // Already have permission, do the thing
-    }
-
-    @Override
-    public void onPermissionsDenied(int i, List<String> list) {
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+        if (requestCode == REQUEST_STORAGE_PERMISSION) {
+            if (grantResults.length != 1 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "需要获取文件访问权限,否则该功能无法使用", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     @Override
@@ -213,7 +219,7 @@ public class MainActivity extends BaseActivity implements HomeView, EasyPermissi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_SETTING
                 && resultCode == SettingActivity.CODE_CHANGE_SKIN) {
-            getDelegate().setLocalNightMode(AppUtils.getInstance(this).getThemeConfig()
+            getDelegate().setLocalNightMode(AppUtils.getInstance().getThemeConfig(this)
                     ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
             recreate();
         }

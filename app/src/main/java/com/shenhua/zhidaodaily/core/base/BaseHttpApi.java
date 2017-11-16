@@ -17,6 +17,8 @@ import java.net.URL;
 /**
  * Created by shenhua on 12/1/2016.
  * Email shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class BaseHttpApi {
 
@@ -26,14 +28,18 @@ public class BaseHttpApi {
     private static final int READ_TIMEOUT = 10000;
     private static final String CHARSET = "UTF-8";
 
-    public static BaseHttpApi getInstance() {
-        if (instance == null) instance = new BaseHttpApi();
+    public synchronized static BaseHttpApi getInstance() {
+        if (instance == null) {
+            instance = new BaseHttpApi();
+        }
         return instance;
     }
 
     @Nullable
     private byte[] connect(String urlSpec, String query) {
-        if (TextUtils.isEmpty(urlSpec)) return null;
+        if (TextUtils.isEmpty(urlSpec)) {
+            return null;
+        }
 
         HttpURLConnection connection = null;
         try {
@@ -57,7 +63,7 @@ public class BaseHttpApi {
             }
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             InputStream in = connection.getInputStream();
-            int byteReaded = 0;
+            int byteReaded;
             byte[] buffer = new byte[1024];
             while ((byteReaded = in.read(buffer)) > 0) {
                 bos.write(buffer, 0, byteReaded);
@@ -102,7 +108,9 @@ public class BaseHttpApi {
             Document document = Jsoup.connect(url).timeout(CONNECT_TIMEOUT)
                     .userAgent(userAgent)
                     .get();
-            if (getBody) return document.body().toString();
+            if (getBody) {
+                return document.body().toString();
+            }
             return document.toString();
         } catch (IOException e) {
             e.printStackTrace();

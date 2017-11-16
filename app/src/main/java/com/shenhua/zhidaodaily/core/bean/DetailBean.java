@@ -3,6 +3,8 @@ package com.shenhua.zhidaodaily.core.bean;
 /**
  * Created by Shenhua on 12/4/2016.
  * e-mail shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class DetailBean {
 

@@ -10,5 +10,6 @@
     <string name="string_auto_update">自动更新</string>
     <string name="string_clean_cache">清理缓存</string>
     <string name="string_check_new">检测更新</string>
+    <string name="string_gif">gif</string>
 
 </resources>

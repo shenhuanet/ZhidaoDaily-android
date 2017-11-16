@@ -6,6 +6,8 @@ import android.webkit.WebViewClient;
 /**
  * Created by Shenhua on 12/9/2016.
  * e-mail shenhuanet@126.com
+ *
+ * @author shenhua
  */
 public class BaseWebViewClient extends WebViewClient {
 
