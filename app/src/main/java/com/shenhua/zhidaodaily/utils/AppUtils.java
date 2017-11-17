@@ -183,4 +183,31 @@ public class AppUtils {
             return "1.0";
         }
     }
+
+    /**
+     * 分享纯文本
+     *
+     * @param context context
+     * @param text    文本内容
+     */
+    public void shareText(Context context, String text) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        context.startActivity(Intent.createChooser(intent, "来自知道日报"));
+    }
+
+    /**
+     * 分享图片
+     *
+     * @param context context
+     * @param path    图片路径
+     */
+    public void shareImage(Context context, String path) {
+        Intent imageIntent = new Intent(Intent.ACTION_SEND);
+        imageIntent.setType("image/jpeg");
+        imageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
+        context.startActivity(Intent.createChooser(imageIntent, "来自知道日报"));
+    }
+
 }

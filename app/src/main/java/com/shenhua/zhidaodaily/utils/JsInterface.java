@@ -41,4 +41,13 @@ public class JsInterface {
             context.startActivity(intent);
         }
     }
+
+    @JavascriptInterface
+    public void loadHtmlContent(String content) {
+        if (TextUtils.isEmpty(content)) {
+            Toast.makeText(context, "暂无可分享内容", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        AppUtils.getInstance().shareText(context, "来自知道日报: \n" + content);
+    }
 }

@@ -15,10 +15,11 @@
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/colorAccent"
+            app:collapsedTitleTextAppearance="@style/SmallCollapsingToolbarTitle"
+            app:contentScrim="@color/colorPrimary"
             app:expandedTitleGravity="bottom"
             app:expandedTitleMarginStart="16dp"
-            app:expandedTitleTextAppearance="@style/TitleTheme"
+            app:expandedTitleTextAppearance="@style/SmallCollapsingToolbarTitle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -32,16 +33,12 @@
                 app:layout_collapseParallaxMultiplier="0.7"
                 tools:targetApi="lollipop" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/bg_img_mask" />
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/actionbar_top"
+                android:minHeight="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:theme="@style/LightToolbarTheme" />
@@ -51,6 +48,18 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/view_detail" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/colorAccent"
+        android:src="@android:drawable/ic_menu_share"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_anchor="@+id/appbar"
+        app:layout_anchorGravity="bottom|end"
+        app:rippleColor="@android:color/white" />
 
     <ProgressBar
         android:id="@+id/progress"

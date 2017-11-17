@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.shenhua.zhidaodaily.R;
@@ -48,9 +49,18 @@ public class DailyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM_TYPE_HEADER) {
-            return new HeaderViewHolder(mLayoutInflater.inflate(R.layout.view_logo, parent, false));
+            HeaderViewHolder headerViewHolder = new HeaderViewHolder(
+                    mLayoutInflater.inflate(R.layout.item_head, parent, false));
+            headerViewHolder.periods.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: 2017-11-17-0017 日期选择
+                    Toast.makeText(mContext, "developing", Toast.LENGTH_SHORT).show();
+                }
+            });
+            return headerViewHolder;
         } else if (viewType == ITEM_TYPE_CONTENT) {
-            return new ContentViewHolder(mLayoutInflater.inflate(R.layout.list_item, parent, false));
+            return new ContentViewHolder(mLayoutInflater.inflate(R.layout.item_list, parent, false));
         } else {
             return null;
         }

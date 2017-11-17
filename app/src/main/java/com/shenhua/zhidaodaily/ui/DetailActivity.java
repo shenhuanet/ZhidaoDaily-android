@@ -6,9 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.os.Bundle;
-import android.support.v4.view.WindowCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,12 +20,14 @@ import com.bumptech.glide.Glide;
 import com.shenhua.zhidaodaily.R;
 import com.shenhua.zhidaodaily.core.bean.DetailBean;
 import com.shenhua.zhidaodaily.presenter.DetailPresenter;
+import com.shenhua.zhidaodaily.utils.AppUtils;
 import com.shenhua.zhidaodaily.utils.BaseWebViewClient;
 import com.shenhua.zhidaodaily.utils.JsInterface;
 import com.shenhua.zhidaodaily.view.DetailView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 详情页
@@ -40,60 +40,60 @@ import butterknife.ButterKnife;
 public class DetailActivity extends BaseActivity implements DetailView {
 
     @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar mToolbar;
     @Bind(R.id.iv_detail_photo)
-    ImageView photoIv;
+    ImageView mPhotoIv;
     @Bind(R.id.progress)
-    ProgressBar progressBar;
+    ProgressBar mProgressBar;
     @Bind(R.id.web)
-    WebView webView;
-    private String dataUrl, title, imgUrl;
+    WebView mWebView;
+    private String mDataUrl, mTitle, mImgUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_MODE_OVERLAY);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         initAppbarLayout();
         initWebView();
         DetailPresenter presenter = new DetailPresenter(this);
-        presenter.execute(dataUrl);
+        presenter.execute(mDataUrl);
     }
 
     private void initAppbarLayout() {
-        setupActionBar(toolbar, "", true);
+        setupActionBar(mToolbar, "", true);
         Intent intent = getIntent();
-        dataUrl = intent.getStringExtra("dataUrl");
-        title = intent.getStringExtra("title");
-        imgUrl = intent.getStringExtra("img");
-        setupActionBarTitle(title);
-        Glide.with(this).load(imgUrl).placeholder(R.drawable.daily_bg)
-                .error(R.drawable.daily_bg).centerCrop().into(photoIv);
+        mDataUrl = intent.getStringExtra("dataUrl");
+        mTitle = intent.getStringExtra("title");
+        mImgUrl = intent.getStringExtra("img");
+        setupActionBarTitle(mTitle);
+        Glide.with(this).load(mImgUrl).placeholder(R.drawable.daily_bg)
+                .error(R.drawable.daily_bg).centerCrop().into(mPhotoIv);
     }
 
     @SuppressLint({"JavascriptInterface", "SetJavaScriptEnabled", "AddJavascriptInterface"})
     private void initWebView() {
-        WebSettings webSettings = webView.getSettings();
+        WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowFileAccess(true);
-        webView.addJavascriptInterface(new JsInterface(this), "imgClickListener");
-        webView.setWebViewClient(new BaseWebViewClient());
+        mWebView.addJavascriptInterface(new JsInterface(this), "imgClickListener");
+        mWebView.addJavascriptInterface(new JsInterface(this), "comjs");
+        mWebView.setWebViewClient(new BaseWebViewClient());
     }
 
     @Override
     public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showDetail(DetailBean detail) {
-        webView.loadDataWithBaseURL("", detail.getHtml(), "text/html", "UTF-8", "");
+        mWebView.loadDataWithBaseURL("", detail.getHtml(), "text/html", "UTF-8", "");
     }
 
     @Override
@@ -110,16 +110,30 @@ public class DetailActivity extends BaseActivity implements DetailView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_share:
-
+            case R.id.action_share_text:
+                mWebView.loadUrl("javascript:window.comjs.loadHtmlContent(document.documentElement.innerText);void(0)");
                 break;
-            case R.id.action_screenshot:
-
+            case R.id.action_share_screenshot:
+                // TODO: 2017-11-17-0017 capturePicture
+                // 子线程截图,主线程分享图片
+                // AppUtils.getInstance().shareImage(this, );
+                break;
+            case R.id.action_share_link:
+                AppUtils.getInstance().shareText(this, "标题:" + mTitle + "\n" + "地址:" + mDataUrl);
+                break;
+            case R.id.action_save_image:
+                // TODO: 2017-11-17-0017 saveImage
+                Toast.makeText(this, "developing", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.fab)
+    void share() {
+        mToolbar.showOverflowMenu();
     }
 
     private Bitmap captureWebViewall(WebView webView) {

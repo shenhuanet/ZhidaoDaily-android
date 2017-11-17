@@ -2,8 +2,10 @@
     <string name="app_name">知道日报</string>
     <string name="copyright">神话出品</string>
 
-    <string name="share">分享</string>
-    <string name="screenshots">截取整个网页</string>
+    <string name="share_text">分享内容</string>
+    <string name="share_screenshots">分享整个网页</string>
+    <string name="share_web">分享链接</string>
+    <string name="share_image">保存启动图</string>
     <string name="string_empty">暂无数据，刷新看看</string>
     <string name="action_setting">设置</string>
     <string name="string_theme_night">夜间模式</string>

@@ -1,5 +1,6 @@
 package com.shenhua.zhidaodaily.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
  *
  * @author shenhua
  */
+@SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {
 
     ActionBar ab;

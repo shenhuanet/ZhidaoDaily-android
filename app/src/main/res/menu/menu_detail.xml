@@ -2,12 +2,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_share"
-        android:title="@string/share"
+        android:id="@+id/action_share_text"
+        android:title="@string/share_text"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_screenshot"
-        android:title="@string/screenshots"
+        android:id="@+id/action_share_screenshot"
+        android:title="@string/share_screenshots"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_share_link"
+        android:title="@string/share_web"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_save_image"
+        android:title="@string/share_image"
         app:showAsAction="never" />
 
 </menu>

@@ -49,13 +49,13 @@ public class MainActivity extends BaseActivity implements HomeView {
     private volatile boolean isExit = false;
     private boolean isInit;
     @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar mToolbar;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
     @Bind(R.id.empty)
-    TextView empty;
+    TextView mEmptyTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity implements HomeView {
                 AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setupActionBar(toolbar, R.string.app_name, false);
+        setupActionBar(mToolbar, R.string.app_name, false);
 
         requestStoragePermission();
 
@@ -149,12 +149,12 @@ public class MainActivity extends BaseActivity implements HomeView {
     public void showData(ArrayList datas) {
         DailyAdapter adapter = new DailyAdapter(MainActivity.this, datas);
         mRecyclerView.setAdapter(adapter);
-        empty.setVisibility(View.GONE);
+        mEmptyTv.setVisibility(View.GONE);
     }
 
     @Override
     public void showFail(final String msg) {
-        empty.setVisibility(View.VISIBLE);
+        mEmptyTv.setVisibility(View.VISIBLE);
         Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -202,4 +202,5 @@ public class MainActivity extends BaseActivity implements HomeView {
             recreate();
         }
     }
+
 }
