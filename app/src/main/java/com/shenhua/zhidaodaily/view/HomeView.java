@@ -1,6 +1,6 @@
 package com.shenhua.zhidaodaily.view;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Shenhua on 12/1/2016.
@@ -8,33 +8,17 @@ import java.util.List;
  *
  * @author shenhua
  */
-public interface HomeView<T> {
-
-    /**
-     * 显示进度条
-     */
-    void showProgress();
-
-    /**
-     * 隐藏进度条
-     */
-    void hideProgress();
+public interface HomeView<T> extends BaseView {
 
     /**
      * 显示数据
      *
      * @param datas datas
      */
-    void showData(List<T> datas);
+    void showData(ArrayList<T> datas);
 
 //    void showListDate(List<HomeBean> datas);
-//
+
 //    void showBanner(BannerBean banner);
 
-    /**
-     * 显示错误信息
-     *
-     * @param msg message
-     */
-    void showFail(String msg);
 }

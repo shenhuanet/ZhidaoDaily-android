@@ -27,7 +27,7 @@ import com.shenhua.zhidaodaily.utils.Constants;
 import com.shenhua.zhidaodaily.view.DailyAdapter;
 import com.shenhua.zhidaodaily.view.HomeView;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -131,53 +131,31 @@ public class MainActivity extends BaseActivity implements HomeView {
 
     @Override
     public void showProgress() {
-        runOnUiThread(new Runnable() {
+        mSwipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-//                progressBar.setVisibility(View.VISIBLE);
-                mSwipeRefreshLayout.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mSwipeRefreshLayout.setRefreshing(true);
-                    }
-                });
+                mSwipeRefreshLayout.setRefreshing(true);
             }
         });
     }
 
     @Override
     public void hideProgress() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-//                progressBar.setVisibility(View.GONE);
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void showData(final List datas) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                DailyAdapter adapter = new DailyAdapter(MainActivity.this, datas);
-                mRecyclerView.setAdapter(adapter);
-                empty.setVisibility(View.GONE);
-            }
-        });
+    public void showData(ArrayList datas) {
+        DailyAdapter adapter = new DailyAdapter(MainActivity.this, datas);
+        mRecyclerView.setAdapter(adapter);
+        empty.setVisibility(View.GONE);
     }
 
     @Override
     public void showFail(final String msg) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                empty.setVisibility(View.VISIBLE);
-                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-            }
-        });
+        empty.setVisibility(View.VISIBLE);
+        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override

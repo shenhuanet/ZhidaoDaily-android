@@ -8,17 +8,7 @@ import com.shenhua.zhidaodaily.core.bean.DetailBean;
  *
  * @author shenhua
  */
-public interface DetailView {
-
-    /**
-     * 显示进度条
-     */
-    void showProgress();
-
-    /**
-     * 隐藏进度条
-     */
-    void hideProgress();
+public interface DetailView extends BaseView {
 
     /**
      * 显示详细信息
@@ -27,10 +17,4 @@ public interface DetailView {
      */
     void showDetail(DetailBean detail);
 
-    /**
-     * 提示错误信息
-     *
-     * @param msg msg
-     */
-    void showFail(String msg);
 }

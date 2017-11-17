@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutorService;
  */
 public class HomeModelImpl implements HomeModel {
 
-    ExecutorService service = ThreadFactoryBuilder.buildSimpleExecutorService();
+    private ExecutorService service = ThreadFactoryBuilder.buildSimpleExecutorService();
 
     @Override
     public void toGetSource(final String url, boolean inSameDate, final HomeCallback callback) {

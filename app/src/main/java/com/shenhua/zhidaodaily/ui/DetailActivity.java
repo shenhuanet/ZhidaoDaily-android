@@ -8,6 +8,7 @@ import android.graphics.Picture;
 import android.os.Bundle;
 import android.support.v4.view.WindowCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,9 +67,6 @@ public class DetailActivity extends BaseActivity implements DetailView {
         dataUrl = intent.getStringExtra("dataUrl");
         title = intent.getStringExtra("title");
         imgUrl = intent.getStringExtra("img");
-
-        System.out.println("shenhua sout:" + dataUrl + "  " + title + "  " + imgUrl);
-
         setupActionBarTitle(title);
         Glide.with(this).load(imgUrl).placeholder(R.drawable.daily_bg)
                 .error(R.drawable.daily_bg).centerCrop().into(photoIv);

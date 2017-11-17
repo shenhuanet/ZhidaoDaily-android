@@ -1,11 +1,13 @@
 package com.shenhua.zhidaodaily.presenter;
 
 import com.shenhua.zhidaodaily.core.HomeCallback;
+import com.shenhua.zhidaodaily.core.HomeViewHandler;
 import com.shenhua.zhidaodaily.model.HomeModel;
 import com.shenhua.zhidaodaily.model.HomeModelImpl;
+import com.shenhua.zhidaodaily.view.BaseView;
 import com.shenhua.zhidaodaily.view.HomeView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * 主页页面代理
@@ -17,12 +19,12 @@ import java.util.List;
  */
 public class HomePresenter implements HomeCallback {
 
-    private HomeView homeView;
     private HomeModel homeModel;
+    private HomeViewHandler homeViewHandler;
 
     public HomePresenter(HomeView homeView) {
-        this.homeView = homeView;
         homeModel = new HomeModelImpl();
+        homeViewHandler = new HomeViewHandler(homeView);
     }
 
     public void execute(String url) {
@@ -31,7 +33,7 @@ public class HomePresenter implements HomeCallback {
 
     @Override
     public void onPreDoing() {
-        homeView.showProgress();
+        homeViewHandler.obtainMessage(BaseView.STATUS_PERDOING).sendToTarget();
     }
 
     @Override
@@ -41,17 +43,17 @@ public class HomePresenter implements HomeCallback {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onGetDatasSuccess(List t) {
-        homeView.showData(t);
+    public void onGetDatasSuccess(ArrayList list) {
+        homeViewHandler.obtainMessage(BaseView.STATUS_SUCCESS, list).sendToTarget();
     }
 
     @Override
     public void onFail(String msg) {
-        homeView.showFail(msg);
+        homeViewHandler.obtainMessage(BaseView.STATUS_FAILED, msg).sendToTarget();
     }
 
     @Override
     public void onPostDoing() {
-        homeView.hideProgress();
+        homeViewHandler.obtainMessage(BaseView.STATUS_POSTDOING).sendToTarget();
     }
 }
