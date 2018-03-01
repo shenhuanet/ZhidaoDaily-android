@@ -22,7 +22,7 @@ public class Constants {
                 "   <meta name=\"format-detection\" content=\"telephone=no, address=no, email=no\">\n" +
                 "   <meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\n" +
                 "   <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\">\n" +
-                "   <style type=\"text/css\">.content-text{text-indent:2em;}img{width:100%;}</style>\n" +
+                "   <style type=\"text/css\">.content-text{text-indent:2em;}img{display:block;max-width: 100%; height: auto;}</style>\n" +
                 "</head>\n<body>\n";
         public static final String HTML_END = "\n</body>\n" + "</html>";
 

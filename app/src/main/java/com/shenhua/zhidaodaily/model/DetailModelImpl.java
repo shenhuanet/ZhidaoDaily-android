@@ -12,7 +12,7 @@ import org.jsoup.nodes.Element;
 
 /**
  * 详情model实现类
- *
+ * <p>
  * Created by shenhua on 12/1/2016.
  * Email shenhuanet@126.com
  *

@@ -10,8 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -23,7 +21,10 @@ import com.shenhua.zhidaodaily.presenter.DetailPresenter;
 import com.shenhua.zhidaodaily.utils.AppUtils;
 import com.shenhua.zhidaodaily.utils.BaseWebViewClient;
 import com.shenhua.zhidaodaily.utils.JsInterface;
+import com.shenhua.zhidaodaily.utils.NestedScrollWebView;
 import com.shenhua.zhidaodaily.view.DetailView;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,8 +46,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
     ImageView mPhotoIv;
     @Bind(R.id.progress)
     ProgressBar mProgressBar;
-    @Bind(R.id.web)
-    WebView mWebView;
+    @Bind(R.id.webview)
+    NestedScrollWebView mWebView;
     private String mDataUrl, mTitle, mImgUrl;
 
     @Override
@@ -75,7 +76,10 @@ public class DetailActivity extends BaseActivity implements DetailView {
     private void initWebView() {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setAllowFileAccess(true);
+        webSettings.setDefaultTextEncodingName("UTF-8");
+        webSettings.setBlockNetworkImage(false);
+        webSettings.setLoadsImagesAutomatically(true);
+        mWebView.setLayerType(View.LAYER_TYPE_NONE, null);
         mWebView.addJavascriptInterface(new JsInterface(this), "imgClickListener");
         mWebView.addJavascriptInterface(new JsInterface(this), "comjs");
         mWebView.setWebViewClient(new BaseWebViewClient());

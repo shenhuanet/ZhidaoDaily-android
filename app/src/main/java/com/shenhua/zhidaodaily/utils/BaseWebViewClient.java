@@ -1,7 +1,7 @@
 package com.shenhua.zhidaodaily.utils;
 
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 /**
  * Created by Shenhua on 12/9/2016.
@@ -12,9 +12,15 @@ import android.webkit.WebViewClient;
 public class BaseWebViewClient extends WebViewClient {
 
     @Override
-    public void onPageFinished(WebView view, String url) {
-        super.onPageFinished(view, url);
-        view.loadUrl("javascript:(function () {" +
+    public boolean shouldOverrideUrlLoading(WebView webView, String s) {
+        webView.loadUrl(s);
+        return true;
+    }
+
+    @Override
+    public void onPageFinished(WebView webView, String s) {
+        super.onPageFinished(webView, s);
+        webView.loadUrl("javascript:(function () {" +
                 "    var objs = document.getElementsByTagName(\"img\");" +
                 "    for (var i = 0; i < objs.length; i++) {" +
                 "        objs[i].onclick = function () {" +

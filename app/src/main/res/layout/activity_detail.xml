@@ -39,6 +39,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_marginTop="@dimen/actionbar_top"
                 android:minHeight="?attr/actionBarSize"
+                app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:theme="@style/LightToolbarTheme" />
@@ -47,7 +48,19 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/view_detail" />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.shenhua.zhidaodaily.utils.NestedScrollWebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

@@ -207,6 +207,5 @@ public class MainActivity extends BaseActivity implements HomeView {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        System.out.println("----== " + savedInstanceState);
     }
 }
