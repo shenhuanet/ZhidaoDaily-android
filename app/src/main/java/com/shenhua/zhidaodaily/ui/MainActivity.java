@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shenhua.zhidaodaily.App;
 import com.shenhua.zhidaodaily.R;
 import com.shenhua.zhidaodaily.presenter.HomePresenter;
 import com.shenhua.zhidaodaily.utils.AppUtils;
@@ -47,7 +49,6 @@ public class MainActivity extends BaseActivity implements HomeView {
     public static final int REQUEST_CODE_SETTING = 201;
     public static final int REQUEST_STORAGE_PERMISSION = 202;
     private volatile boolean isExit = false;
-    private boolean isInit;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.swipeRefreshLayout)
@@ -95,15 +96,8 @@ public class MainActivity extends BaseActivity implements HomeView {
                 doGetData();
             }
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (!isInit) {
-            doGetData();
-        }
-        isInit = true;
+        doGetData();
     }
 
     /**
@@ -185,7 +179,7 @@ public class MainActivity extends BaseActivity implements HomeView {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_STORAGE_PERMISSION) {
             if (grantResults.length != 1 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "需要获取文件访问权限,否则该功能无法使用", Toast.LENGTH_SHORT).show();
+                Snackbar.make(mRecyclerView, "需要获取文件访问权限,否则该功能无法使用", Snackbar.LENGTH_LONG).show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -195,12 +189,24 @@ public class MainActivity extends BaseActivity implements HomeView {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("--" + "  requestCode " + requestCode + "   resultCode:" + resultCode);
         if (requestCode == REQUEST_CODE_SETTING
                 && resultCode == SettingActivity.CODE_CHANGE_SKIN) {
             getDelegate().setLocalNightMode(AppUtils.getInstance().getThemeConfig(this)
                     ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
             recreate();
+            ((App) getApplication()).changeSkin = false;
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        System.out.println("----== " + savedInstanceState);
+    }
 }

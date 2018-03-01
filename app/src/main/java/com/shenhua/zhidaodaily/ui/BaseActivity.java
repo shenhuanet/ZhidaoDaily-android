@@ -54,7 +54,7 @@ public class BaseActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                 finishAfterTransition();
             } else {
-                finish();
+                super.onBackPressed();
             }
         }
         return super.onOptionsItemSelected(item);

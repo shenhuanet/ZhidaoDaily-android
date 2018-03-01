@@ -11,6 +11,9 @@ import com.tencent.bugly.Bugly;
  *         Email shenhuanet@126.com
  */
 public class App extends Application {
+
+    public boolean changeSkin;
+
     @Override
     public void onCreate() {
         super.onCreate();

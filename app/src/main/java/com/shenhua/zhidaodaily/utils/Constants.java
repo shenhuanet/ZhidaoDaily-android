@@ -31,4 +31,7 @@ public class Constants {
         }
     }
 
+    // 期数接口:https://p.baidu.com/daily?period=1045 参数1:指定期数
+    // 往期接口:https://p.baidu.com/daily/ajax/periodList?pn=1646&rn=10 参数1:当前期数 参数2:往前推几个期数
+
 }

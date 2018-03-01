@@ -1,15 +1,16 @@
 package com.shenhua.zhidaodaily.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shenhua.zhidaodaily.App;
 import com.shenhua.zhidaodaily.R;
 import com.shenhua.zhidaodaily.utils.AppUtils;
 import com.shenhua.zhidaodaily.utils.DataCleanManager;
@@ -104,8 +105,22 @@ public class SettingActivity extends BaseActivity {
         getDelegate().setLocalNightMode(mThemeSwitch.isChecked()
                 ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
         recreate();
-        Intent intent = new Intent();
-        intent.putExtra("delete", true);
-        this.setResult(CODE_CHANGE_SKIN, intent);
+        ((App) getApplication()).changeSkin = true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (((App) getApplication()).changeSkin) {
+            this.setResult(CODE_CHANGE_SKIN, getIntent());
+        }
+        super.onBackPressed();
     }
 }
