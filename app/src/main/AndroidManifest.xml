@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
@@ -28,19 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.DetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.SettingActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.PhotoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.tencent.bugly.beta.ui.BetaActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:theme="@android:style/Theme.Translucent" />
     </application>
 
 </manifest>

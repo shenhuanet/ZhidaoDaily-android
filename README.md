@@ -4,12 +4,13 @@
 
 ## Technology used
 
-- [x] MVP框架
+- [x] AndroidX支持
+- [x] LiveData + Room + ViewModel 架构
 - [x] Jsoup网络请求与Html文档解析
-- [ ] 数据库本地存储
+- [x] 数据库本地存储
 - [x] 动态更换皮肤
 - [ ] 支持切换其它日期
-- [ ] 内容分享(HTML文字内容|页面截图)
+- [x] 内容分享(HTML文字内容|页面截图)
 
 ## About Me
 CSDN：http://blog.csdn.net/klxh2009<br>

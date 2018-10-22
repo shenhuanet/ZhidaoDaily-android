@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/dailyFragment">
+
+    <fragment
+        android:id="@+id/dailyFragment"
+        android:name="com.shenhua.zhidaodaily.ui.DailyFragment"
+        android:label="DailyFragment"
+        tools:layout="@layout/fragment_daily">
+        <action
+            android:id="@+id/action_dailyFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_dailyFragment_to_contentFragment"
+            app:destination="@id/contentFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.shenhua.zhidaodaily.ui.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/contentFragment"
+        android:name="com.shenhua.zhidaodaily.ui.ContentFragment"
+        android:label="ContentFragment"
+        tools:layout="@layout/fragment_content">
+        <action
+            android:id="@+id/action_contentFragment_to_photoFragment"
+            app:destination="@id/photoFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoFragment"
+        android:name="com.shenhua.zhidaodaily.ui.PhotoFragment"
+        android:label="PhotoFragment"
+        tools:layout="@layout/fragment_photo" />
+</navigation>

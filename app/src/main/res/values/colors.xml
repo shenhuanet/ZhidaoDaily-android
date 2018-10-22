@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3A7DDC</color>
+    <color name="colorPrimary">#FAFAFA</color>
     <color name="colorPrimaryDark">#3A7DDC</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWindowBg">#FFFFFF</color>
-    <color name="colorText">#000000</color>
-    <color name="colorTextLabel">#333333</color>
-    <color name="colorLogoBg">#993A7DDC</color>
-    <color name="colorRead">#3ABDCB</color>
+
+    <!--#282828   #FAFAFA -->
+    <color name="colorTextPrimary">#333333</color>
+    <color name="colorTextSecondly">#666666</color>
+    <color name="colorPeriodsBg">#88333333</color>
+
 </resources>

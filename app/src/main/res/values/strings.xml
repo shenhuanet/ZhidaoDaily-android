@@ -5,7 +5,6 @@
     <string name="share_text">分享内容</string>
     <string name="share_screenshots">分享整个网页</string>
     <string name="share_web">分享链接</string>
-    <string name="share_image">保存启动图</string>
     <string name="string_empty">暂无数据，刷新看看</string>
     <string name="action_setting">设置</string>
     <string name="string_theme_night">夜间模式</string>
@@ -13,5 +12,8 @@
     <string name="string_clean_cache">清理缓存</string>
     <string name="string_check_new">检测更新</string>
     <string name="string_gif">gif</string>
+    <string name="string_periods_format">第 %1$s 期\n %2$s </string>
+    <string name="save_cover_image">保存封面图</string>
+    <string name="newest_version">当前已是最新版本</string>
 
 </resources>

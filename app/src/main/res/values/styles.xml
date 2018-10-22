@@ -4,24 +4,23 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorWindowBg</item>
     </style>
 
-    <style name="LightToolbarTheme" parent="@style/Widget.AppCompat.Light.ActionBar">
+    <style name="Toolbar.Light" parent="@style/Widget.AppCompat.Light.ActionBar">
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay.Light" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay.Dark" parent="ThemeOverlay.AppCompat.Dark" />
 
-    <style name="SmallCollapsingToolbarTitle">
-        <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="MiddleCollapsingToolbarTitle">
-        <item name="android:textSize">16sp</item>
+    <style name="ToolbarTitle.Small" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">@dimen/abc_text_size_small</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
 </resources>
