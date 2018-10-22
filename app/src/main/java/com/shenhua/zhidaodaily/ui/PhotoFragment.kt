@@ -29,7 +29,7 @@ class PhotoFragment : Fragment() {
     private val contentRegistry = ContentRepository()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Utils.liteStatusBarIcon(activity?.window?.decorView)
+        Utils.liteStatusBarIcon(activity?.window)
         val view = inflater.inflate(R.layout.fragment_photo, container, false)
         val image = arguments?.getString("image")
         Glide.with(view).load(image).transition(DrawableTransitionOptions.withCrossFade()).into(view.photoView)

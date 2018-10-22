@@ -2,9 +2,11 @@ package com.shenhua.zhidaodaily.utils
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.view.View
+import android.view.Window
 
 /**
  * Created by shenhua on 2018/10/22.
@@ -65,23 +67,25 @@ object Utils {
         context.startActivity(Intent.createChooser(imageIntent, "来自知道日报"))
     }
 
-    fun darkStatusBarIcon(decorView: View?) {
+    fun darkStatusBarIcon(window: Window?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (dayNightTheme) {
-                decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             } else {
-                decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
+            window?.statusBarColor = Color.TRANSPARENT
         }
     }
 
-    fun liteStatusBarIcon(decorView: View?) {
+    fun liteStatusBarIcon(window: Window?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (dayNightTheme) {
-                decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             } else {
-                decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             }
+            window?.statusBarColor = Color.TRANSPARENT
         }
     }
 }

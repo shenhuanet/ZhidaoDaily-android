@@ -25,7 +25,7 @@ class SettingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        Utils.darkStatusBarIcon(activity?.window?.decorView)
+        Utils.darkStatusBarIcon(activity?.window)
         val view = inflater.inflate(R.layout.fragment_setting, container, false)
         (activity!! as MainActivity).setSupportActionBar(view.toolbar)
         (activity!! as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)

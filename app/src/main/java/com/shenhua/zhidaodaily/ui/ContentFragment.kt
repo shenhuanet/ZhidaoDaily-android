@@ -40,9 +40,9 @@ class ContentFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         if (lightStatusBar) {
-            Utils.liteStatusBarIcon(activity?.window?.decorView)
+            Utils.liteStatusBarIcon(activity?.window)
         } else {
-            Utils.darkStatusBarIcon(activity?.window?.decorView)
+            Utils.darkStatusBarIcon(activity?.window)
         }
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_content, container, false)
@@ -79,7 +79,7 @@ class ContentFragment : Fragment() {
                         mRootView!!.toolbar.navigationIcon = ContextCompat.getDrawable(context!!, R.drawable.abc_ic_ab_back_material_primary)
                         mRootView!!.toolbar.overflowIcon = ContextCompat.getDrawable(context!!, R.drawable.abc_ic_menu_overflow_material_primary)
                     }
-                    Utils.darkStatusBarIcon(activity?.window?.decorView)
+                    Utils.darkStatusBarIcon(activity?.window)
                     lightStatusBar = false
                 } else {
                     mRootView!!.toolbar_layout.setCollapsedTitleTextColor(Color.WHITE)
@@ -90,7 +90,7 @@ class ContentFragment : Fragment() {
                         mRootView!!.toolbar.navigationIcon = ContextCompat.getDrawable(context!!, R.drawable.abc_ic_ab_back_material_primary)
                         mRootView!!.toolbar.overflowIcon = ContextCompat.getDrawable(context!!, R.drawable.abc_ic_menu_overflow_material_primary)
                     }
-                    Utils.liteStatusBarIcon(activity?.window?.decorView)
+                    Utils.liteStatusBarIcon(activity?.window)
                     lightStatusBar = true
                 }
             })

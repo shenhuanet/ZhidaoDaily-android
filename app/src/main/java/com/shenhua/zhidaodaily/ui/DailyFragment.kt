@@ -33,7 +33,7 @@ class DailyFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        Utils.darkStatusBarIcon(activity?.window?.decorView)
+        Utils.darkStatusBarIcon(activity?.window)
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_daily, container, false)
             (activity!! as MainActivity).setSupportActionBar(mRootView!!.toolbar)
