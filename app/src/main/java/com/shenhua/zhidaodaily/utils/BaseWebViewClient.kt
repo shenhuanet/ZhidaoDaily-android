@@ -1,7 +1,8 @@
 package com.shenhua.zhidaodaily.utils
 
-import com.tencent.smtt.sdk.WebView
-import com.tencent.smtt.sdk.WebViewClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
+
 
 /**
  * Created by Shenhua on 12/9/2016.

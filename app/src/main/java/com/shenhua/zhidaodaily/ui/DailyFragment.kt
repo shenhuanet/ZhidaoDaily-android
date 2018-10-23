@@ -78,6 +78,7 @@ class DailyFragment : Fragment() {
     private fun loadFromNetwork() {
         dailyViewModel.fetch(Observer { period ->
             DailyPeriods.putLastPeriods(context!!, period)
+            Log.d("shenhuaLog -- " + DailyFragment::class.java.simpleName, "loadFromNetwork: period=$period")
             loadFromDB(period.periods!!)
         })
     }

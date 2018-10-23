@@ -50,13 +50,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.shenhua.zhidaodaily.utils.NestedScrollWebView
+        <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 
     </androidx.core.widget.NestedScrollView>
 
@@ -66,12 +65,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@color/colorAccent"
-        android:src="@drawable/ic_menu_share"
         app:backgroundTint="@color/colorAccent"
         app:fabSize="mini"
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="bottom|end"
-        app:rippleColor="@android:color/white" />
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/ic_menu_share" />
 
     <ProgressBar
         android:id="@+id/progress"
