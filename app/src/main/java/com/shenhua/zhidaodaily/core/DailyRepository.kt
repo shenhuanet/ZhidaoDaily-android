@@ -26,7 +26,7 @@ class DailyRepository(private val dailyDao: DailyDao) {
 
     fun fetch(observer: Observer<Periods>) {
         service.newWorkIo.execute {
-            Log.d("shenhuaLog -- " + DailyViewModel::class.java.simpleName, "fetch start.")
+            Log.d("shenhuaLog -- " + DailyRepository::class.java.simpleName, "fetch start.")
             val source = BaseHttpApi.getInstance().doGetHtml(Constants.DAILY_URL, Constants.USER_AGENT, true)
             if (TextUtils.isEmpty(source)) {
                 return@execute
@@ -63,7 +63,7 @@ class DailyRepository(private val dailyDao: DailyDao) {
                     result.add(content)
                 }
                 val insertDaily = insertDaily(result)
-                Log.d("shenhuaLog -- " + DailyRepository::class.java.simpleName, "fetch result: $insertDaily")
+                Log.d("shenhuaLog -- " + DailyRepository::class.java.simpleName, "fetch result: $period $insertDaily")
                 service.mainThread.execute { observer.onChanged(Periods(period, System.currentTimeMillis())) }
             } catch (e: Exception) {
                 e.printStackTrace()

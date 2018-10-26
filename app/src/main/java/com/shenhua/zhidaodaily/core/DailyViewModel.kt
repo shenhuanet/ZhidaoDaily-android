@@ -2,7 +2,6 @@ package com.shenhua.zhidaodaily.core
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
 /**
@@ -13,11 +12,6 @@ import androidx.lifecycle.Observer
 class DailyViewModel(application: Application) : AndroidViewModel(application) {
 
     private val dailyRepository: DailyRepository = DailyRepository(DailyDatabaseCreator.database(application).dao())
-    private var daily: LiveData<List<Daily>>? = null
-
-    init {
-//        daily = dailyRepository.getDaily(periods = "0")
-    }
 
     /**
      * fetch the src from network
@@ -29,6 +23,7 @@ class DailyViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * fetch the src from network by periods
      */
+    @Deprecated("unused")
     fun fetch(periods: String, observer: Observer<Periods>) {
         dailyRepository.fetch(periods, observer)
     }
