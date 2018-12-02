@@ -2,13 +2,13 @@
 A daily app and datas from baidu zhidao,Using the Android JetPack Arch development model.
 
 ## download
-[Download](https://github.com/shenhuanet/shenhua-zhidaodaily/releases/download/3.0.0-alpha2/daily-3.0.0-alpha2.apk)
+[Download APK](https://github.com/shenhuanet/shenhua-zhidaodaily/releases/download/3.0.0-alpha2/daily-3.0.0-alpha2.apk)
 
 ## ScreenShot:
-
-![main](https://raw.githubusercontent.com/shenhuanet/shenhua-zhidaodaily/master/screenshot/main.jpg)
-
-![detail](https://raw.githubusercontent.com/shenhuanet/shenhua-zhidaodaily/master/screenshot/detail.jpg)
+<div>
+    <img src="https://raw.githubusercontent.com/shenhuanet/shenhua-zhidaodaily/master/screenshot/main.jpg" width=40% height=40% />
+    <img src="https://raw.githubusercontent.com/shenhuanet/shenhua-zhidaodaily/master/screenshot/detail.jpg" width=40% height=40% />
+</div>
 
 ## Technology used
 
