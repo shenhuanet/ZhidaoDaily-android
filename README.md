@@ -1,6 +1,14 @@
+## zhidaodaily
+A daily app and datas from baidu zhidao,Using the Android JetPack Arch development model.
+
+## download
+[Download](https://github.com/shenhuanet/shenhua-zhidaodaily/releases/download/3.0.0-alpha2/daily-3.0.0-alpha2.apk)
+
 ## ScreenShot:
 
-![preview](https://raw.githubusercontent.com/shenhuanet/shenhua-zhidaodaily/master/Screenshot.png)
+![main](https://raw.githubusercontent.com/shenhuanet/shenhua-zhidaodaily/master/screenshot/main.jpg)
+
+![detail](https://raw.githubusercontent.com/shenhuanet/shenhua-zhidaodaily/master/screenshot/detail.jpg)
 
 ## Technology used
 
@@ -18,7 +26,7 @@ JianShu：http://www.jianshu.com/u/12a81897d5bc
 
 ## License
 
-    Copyright (C) 2017  shenhuanet
+    Copyright (C) 2018  shenhuanet
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
